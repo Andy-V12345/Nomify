@@ -11,7 +11,7 @@ import SwiftUI
 struct NomifyApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AuthView()
         }
     }
 }
