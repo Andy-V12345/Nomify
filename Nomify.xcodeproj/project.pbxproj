@@ -41,6 +41,8 @@
 		D866ECFD2C1A33B60060B6B8 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D866ECFC2C1A33B60060B6B8 /* FirebaseFirestore */; };
 		D866ECFF2C1A33B60060B6B8 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D866ECFE2C1A33B60060B6B8 /* FirebaseFirestoreSwift */; };
 		D866ED012C1A3A2A0060B6B8 /* AllergenPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D866ED002C1A3A2A0060B6B8 /* AllergenPanel.swift */; };
+		D866ED032C1B7C610060B6B8 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D866ED022C1B7C610060B6B8 /* SearchBar.swift */; };
+		D866ED052C1BA50E0060B6B8 /* SideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D866ED042C1BA50E0060B6B8 /* SideBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,8 @@
 		D8584DCF2C1A246C00898175 /* AllergenProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergenProfileView.swift; sourceTree = "<group>"; };
 		D8584DD52C1A282300898175 /* FirebaseServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseServices.swift; sourceTree = "<group>"; };
 		D866ED002C1A3A2A0060B6B8 /* AllergenPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergenPanel.swift; sourceTree = "<group>"; };
+		D866ED022C1B7C610060B6B8 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		D866ED042C1BA50E0060B6B8 /* SideBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +202,8 @@
 			children = (
 				D80434FC2C18E16B007935BC /* CustomTextField.swift */,
 				D866ED002C1A3A2A0060B6B8 /* AllergenPanel.swift */,
+				D866ED022C1B7C610060B6B8 /* SearchBar.swift */,
+				D866ED042C1BA50E0060B6B8 /* SideBar.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -397,6 +403,8 @@
 				D866ED012C1A3A2A0060B6B8 /* AllergenPanel.swift in Sources */,
 				D8584DC02C19409A00898175 /* HomeView.swift in Sources */,
 				D80434CF2C18AA3A007935BC /* NomifyApp.swift in Sources */,
+				D866ED032C1B7C610060B6B8 /* SearchBar.swift in Sources */,
+				D866ED052C1BA50E0060B6B8 /* SideBar.swift in Sources */,
 				D80434FD2C18E16B007935BC /* CustomTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

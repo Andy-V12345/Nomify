@@ -11,44 +11,70 @@ import FirebaseAuth
 struct HomeView: View {
     
     @State var isConfiguring = false
+    @State private var isViewingProfile = false
+    
+    @State var foodSearch = ""
     
     @Environment(AuthInfo.self) private var authInfo
     
     let firebaseServices = FirebaseServices()
     
     var body: some View {
+        GeometryReader { metrics in
+            ZStack {
+                Color.white.ignoresSafeArea()
                 
-        ZStack {
-            
-            Color.white.ignoresSafeArea()
-            
-            VStack {
-                Button(action: {
-                    do {
-                        try Auth.auth().signOut()
-                    }
-                    catch {
+                VStack {
+                    HStack {
+                        Text("Nomify")
+                            .font(.title)
+                            .bold()
                         
+                        Spacer()
+                        
+                        Button(action: {
+                            isViewingProfile = true
+                        }, label: {
+                            Image(systemName: "person.circle.fill")
+                                .font(.title)
+                        })
+                    } //: Header HStack
+                    .foregroundStyle(Color("themeGreen"))
+                    
+                    HStack(spacing: 25) {
+                        SearchBar(text: $foodSearch, placeholder: "Search for a food")
+                        
+                        Image(systemName: "barcode.viewfinder")
+                            .foregroundStyle(.black)
+                            .font(.title)
                     }
-                }, label: {
-                    Text("Sign Out")
-                })
-            } //: VStack
-            .onAppear {
-                Task {
-                    let userInfo = await firebaseServices.getUserInfo(uid: authInfo.user!.uid)
                     
-                    authInfo.userInfo = userInfo
-                    
-                    if userInfo == nil || !userInfo!.isConfigured {
-                        isConfiguring = true
+                    Spacer()
+                } //: VStack
+                .padding(.vertical, 20)
+                .padding(.horizontal, 25)
+                .onAppear {
+                    Task {
+                        let userInfo = await firebaseServices.getUserInfo(uid: authInfo.user!.uid)
+                        
+                        authInfo.userInfo = userInfo
+                        
+                        if userInfo == nil || !userInfo!.isConfigured {
+                            isConfiguring = true
+                        }
                     }
                 }
+                .fullScreenCover(isPresented: $isConfiguring, content: {
+                    AllergenProfileView(allergenProfile: authInfo.userInfo?.allergenProfile)
+                })
+                
+                SideBar(isViewingProfile: $isViewingProfile, isConfiguring: $isConfiguring)
+                
+            } //: ZStack
+            .onTapGesture {
+                hideKeyboard()
             }
-            .fullScreenCover(isPresented: $isConfiguring, content: {
-                AllergenProfileView(allergenProfile: authInfo.userInfo?.allergenProfile)
-            })
-        } //: ZStack
+        }
         
     }
 }

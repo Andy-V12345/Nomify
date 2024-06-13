@@ -14,14 +14,14 @@ struct AllergenProfileView: View {
     
     @State var allergenProfile: [String: String]
     
-    @State var allergens: [String] = ["Milk", "Eggs", "Fish", "Shellfish", "Tree Nuts", "Peanuts", "Wheat", "Soybeans", "Sesame"]
+    @State var allergens: [String] = ["Dairy", "Eggs", "Fish", "Shellfish", "Tree Nuts", "Peanuts", "Wheat", "Soybeans", "Sesame"]
     
     let firebaseServices = FirebaseServices()
     
     init(allergenProfile: [String: String]?) {
         if allergenProfile == nil {
             self.allergenProfile = [
-                "Milk" : "Not Allergic",
+                "Dairy" : "Not Allergic",
                 "Eggs" : "Not Allergic",
                 "Fish" : "Not Allergic",
                 "Shellfish" : "Not Allergic",

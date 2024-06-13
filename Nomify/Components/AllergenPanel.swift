@@ -37,7 +37,7 @@ struct AllergenPanel: View {
                 Text(allergen)
                     .bold()
                     .font(.title3)
-                    .foregroundStyle(Color("darkGreen"))
+                    .foregroundStyle(.black)
                 
                 Spacer()
                 
@@ -46,7 +46,7 @@ struct AllergenPanel: View {
                     .font(.subheadline)
                     .foregroundStyle(sevColor)
             }
-            .padding(.trailing, 20)
+            .padding(.trailing, 10)
         }) //: DisclosureGroup
         .tint(Color("darkGreen"))
         .padding(.horizontal, 20)
