@@ -96,7 +96,6 @@ struct AuthView: View {
                         Text("Nomify")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .font(.largeTitle)
-                            .fontWeight(.bold)
                         Text("Please sign in to get started!")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .font(.subheadline)

@@ -18,6 +18,7 @@ class AuthInfo {
     
     var state: AuthState = .undefined
     var user: User? = nil
+    var userInfo: UserInfo? = nil
     
     init() {
         Auth.auth().addStateDidChangeListener { auth, user in

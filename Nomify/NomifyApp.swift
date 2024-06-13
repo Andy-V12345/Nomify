@@ -49,6 +49,7 @@ struct ViewManager: View {
             }
             else if authInfo.state == .authorized {
                 HomeView()
+                    .environment(authInfo)
             }
         }
     }
