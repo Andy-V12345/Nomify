@@ -23,6 +23,16 @@ struct AuthView: View {
     @State var isLogIn = true
     @State var isLoading = false
     
+    @FocusState var isEmailFocused: Bool
+    @FocusState var isPasswordFocused: Bool
+    @FocusState var isConfirmPasswordFocused: Bool
+    
+    func hideKeyboard() {
+        isEmailFocused = false
+        isPasswordFocused = false
+        isConfirmPasswordFocused = false
+    }
+    
     
     func toggleState() {
         isLogIn.toggle()
@@ -79,10 +89,9 @@ struct AuthView: View {
                 if isLoading {
                     VStack {
                         Spacer()
-                        ProgressView()
-                            .tint(Color("themeGreen"))
-                            .frame(width: 300)
-                            .controlSize(.large)
+                        
+                        LoadingSpinner(size: 35)
+                        
                         Spacer()
                     }
                 }
@@ -139,6 +148,7 @@ struct AuthView: View {
                     .foregroundStyle(.gray)
                 CustomTextField(placeholder: Text("Email").foregroundStyle(.gray), text: $email, isSecure: false)
                     .frame(height: 50)
+                    .focused($isEmailFocused)
             } //: Email HStack
             .overlay(
                 Divider()
@@ -153,6 +163,7 @@ struct AuthView: View {
                     .foregroundStyle(.gray)
                 CustomTextField(placeholder: Text("Password").foregroundStyle(.gray), text: $password, isSecure: true)
                     .frame(height: 50)
+                    .focused($isPasswordFocused)
             } //: Password HStack
             .overlay(
                 Divider()
@@ -276,6 +287,7 @@ struct AuthView: View {
                     .foregroundStyle(.gray)
                 CustomTextField(placeholder: Text("Email").foregroundStyle(.gray), text: $email, isSecure: false)
                     .frame(height: 50)
+                    .focused($isEmailFocused)
             } //: Email HStack
             .overlay(
                 Divider()
@@ -290,6 +302,7 @@ struct AuthView: View {
                     .foregroundStyle(.gray)
                 CustomTextField(placeholder: Text("Password").foregroundStyle(.gray), text: $password, isSecure: true)
                     .frame(height: 50)
+                    .focused($isPasswordFocused)
             } //: Password HStack
             .overlay(
                 Divider()
@@ -304,6 +317,7 @@ struct AuthView: View {
                     .foregroundStyle(.gray)
                 CustomTextField(placeholder: Text("Confirm password").foregroundStyle(.gray), text: $confirmedPassword, isSecure: true)
                     .frame(height: 50)
+                    .focused($isConfirmPasswordFocused)
             } //: Password HStack
             .overlay(
                 Divider()

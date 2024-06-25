@@ -15,7 +15,6 @@
 		D80434EC2C18AA3D007935BC /* NomifyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80434EB2C18AA3D007935BC /* NomifyUITestsLaunchTests.swift */; };
 		D80434FA2C18DE11007935BC /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80434F92C18DE11007935BC /* AuthView.swift */; };
 		D80434FD2C18E16B007935BC /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80434FC2C18E16B007935BC /* CustomTextField.swift */; };
-		D80435002C18EB13007935BC /* HideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80434FF2C18EB13007935BC /* HideKeyboard.swift */; };
 		D8584DAD2C18F52E00898175 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D8584DAC2C18F52E00898175 /* FirebaseAnalytics */; };
 		D8584DAF2C18F52E00898175 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D8584DAE2C18F52E00898175 /* FirebaseAuth */; };
 		D8584DB12C18F52E00898175 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D8584DB02C18F52E00898175 /* FirebaseFirestore */; };
@@ -43,6 +42,14 @@
 		D866ED012C1A3A2A0060B6B8 /* AllergenPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D866ED002C1A3A2A0060B6B8 /* AllergenPanel.swift */; };
 		D866ED032C1B7C610060B6B8 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D866ED022C1B7C610060B6B8 /* SearchBar.swift */; };
 		D866ED052C1BA50E0060B6B8 /* SideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D866ED042C1BA50E0060B6B8 /* SideBar.swift */; };
+		D866ED072C1E59600060B6B8 /* AllergenRiskRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = D866ED062C1E59600060B6B8 /* AllergenRiskRating.swift */; };
+		D866ED092C1E6A440060B6B8 /* AlternativesLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = D866ED082C1E6A440060B6B8 /* AlternativesLink.swift */; };
+		D866ED0B2C1F96550060B6B8 /* LoadingSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D866ED0A2C1F96550060B6B8 /* LoadingSpinner.swift */; };
+		D866ED0D2C1F99780060B6B8 /* GeminiServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = D866ED0C2C1F99780060B6B8 /* GeminiServices.swift */; };
+		D866ED0F2C1F9C350060B6B8 /* GenerativeAI-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D866ED0E2C1F9C350060B6B8 /* GenerativeAI-Info.plist */; };
+		D866ED102C1F9CB30060B6B8 /* GenerativeAI-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D866ED0E2C1F9C350060B6B8 /* GenerativeAI-Info.plist */; };
+		D866ED112C1F9CB30060B6B8 /* GenerativeAI-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D866ED0E2C1F9C350060B6B8 /* GenerativeAI-Info.plist */; };
+		D866ED172C220B900060B6B8 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = D866ED162C220B900060B6B8 /* CodeScanner */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,7 +81,6 @@
 		D80434EB2C18AA3D007935BC /* NomifyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NomifyUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		D80434F92C18DE11007935BC /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		D80434FC2C18E16B007935BC /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
-		D80434FF2C18EB13007935BC /* HideKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideKeyboard.swift; sourceTree = "<group>"; };
 		D8584DB62C18F75A00898175 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D8584DBB2C18FD9900898175 /* AuthInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInfo.swift; sourceTree = "<group>"; };
 		D8584DBF2C19409A00898175 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -85,6 +91,11 @@
 		D866ED002C1A3A2A0060B6B8 /* AllergenPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergenPanel.swift; sourceTree = "<group>"; };
 		D866ED022C1B7C610060B6B8 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		D866ED042C1BA50E0060B6B8 /* SideBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBar.swift; sourceTree = "<group>"; };
+		D866ED062C1E59600060B6B8 /* AllergenRiskRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergenRiskRating.swift; sourceTree = "<group>"; };
+		D866ED082C1E6A440060B6B8 /* AlternativesLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativesLink.swift; sourceTree = "<group>"; };
+		D866ED0A2C1F96550060B6B8 /* LoadingSpinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingSpinner.swift; sourceTree = "<group>"; };
+		D866ED0C2C1F99780060B6B8 /* GeminiServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiServices.swift; sourceTree = "<group>"; };
+		D866ED0E2C1F9C350060B6B8 /* GenerativeAI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GenerativeAI-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +111,7 @@
 				D8584DB12C18F52E00898175 /* FirebaseFirestore in Frameworks */,
 				D8584DB32C18F52E00898175 /* FirebaseFirestoreSwift in Frameworks */,
 				D8584DC82C195DEB00898175 /* GoogleSignIn in Frameworks */,
+				D866ED172C220B900060B6B8 /* CodeScanner in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,6 +170,7 @@
 				D80434CE2C18AA3A007935BC /* NomifyApp.swift */,
 				D80434D22C18AA3C007935BC /* Assets.xcassets */,
 				D80434D42C18AA3C007935BC /* Preview Content */,
+				D866ED0E2C1F9C350060B6B8 /* GenerativeAI-Info.plist */,
 			);
 			path = Nomify;
 			sourceTree = "<group>";
@@ -204,6 +217,9 @@
 				D866ED002C1A3A2A0060B6B8 /* AllergenPanel.swift */,
 				D866ED022C1B7C610060B6B8 /* SearchBar.swift */,
 				D866ED042C1BA50E0060B6B8 /* SideBar.swift */,
+				D866ED062C1E59600060B6B8 /* AllergenRiskRating.swift */,
+				D866ED082C1E6A440060B6B8 /* AlternativesLink.swift */,
+				D866ED0A2C1F96550060B6B8 /* LoadingSpinner.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -211,8 +227,8 @@
 		D80434FE2C18EB05007935BC /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				D80434FF2C18EB13007935BC /* HideKeyboard.swift */,
 				D8584DD52C1A282300898175 /* FirebaseServices.swift */,
+				D866ED0C2C1F99780060B6B8 /* GeminiServices.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -265,6 +281,7 @@
 				D8584DC42C19474E00898175 /* AlertToast */,
 				D8584DC72C195DEB00898175 /* GoogleSignIn */,
 				D8584DC92C195DEB00898175 /* GoogleSignInSwift */,
+				D866ED162C220B900060B6B8 /* CodeScanner */,
 			);
 			productName = Nomify;
 			productReference = D80434CB2C18AA3A007935BC /* Nomify.app */;
@@ -348,6 +365,8 @@
 				D80435052C18F28A007935BC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				D8584DC32C19474E00898175 /* XCRemoteSwiftPackageReference "AlertToast" */,
 				D8584DC62C195DEA00898175 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				D866ED122C1F9E2D0060B6B8 /* XCRemoteSwiftPackageReference "generative-ai-swift" */,
+				D866ED152C220B900060B6B8 /* XCRemoteSwiftPackageReference "CodeScanner" */,
 			);
 			productRefGroup = D80434CC2C18AA3A007935BC /* Products */;
 			projectDirPath = "";
@@ -367,6 +386,7 @@
 			files = (
 				D80434D62C18AA3C007935BC /* Preview Assets.xcassets in Resources */,
 				D80434D32C18AA3C007935BC /* Assets.xcassets in Resources */,
+				D866ED0F2C1F9C350060B6B8 /* GenerativeAI-Info.plist in Resources */,
 				D8584DB72C18F75A00898175 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -375,6 +395,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D866ED102C1F9CB30060B6B8 /* GenerativeAI-Info.plist in Resources */,
 				D8584DB82C18F75A00898175 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -383,6 +404,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D866ED112C1F9CB30060B6B8 /* GenerativeAI-Info.plist in Resources */,
 				D8584DB92C18F75A00898175 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -394,17 +416,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D80435002C18EB13007935BC /* HideKeyboard.swift in Sources */,
+				D866ED092C1E6A440060B6B8 /* AlternativesLink.swift in Sources */,
 				D80434FA2C18DE11007935BC /* AuthView.swift in Sources */,
 				D8584DD62C1A282300898175 /* FirebaseServices.swift in Sources */,
+				D866ED072C1E59600060B6B8 /* AllergenRiskRating.swift in Sources */,
 				D8584DD02C1A246C00898175 /* AllergenProfileView.swift in Sources */,
 				D8584DBC2C18FD9900898175 /* AuthInfo.swift in Sources */,
 				D8584DCE2C1A1ADA00898175 /* ViewExtension.swift in Sources */,
 				D866ED012C1A3A2A0060B6B8 /* AllergenPanel.swift in Sources */,
+				D866ED0D2C1F99780060B6B8 /* GeminiServices.swift in Sources */,
 				D8584DC02C19409A00898175 /* HomeView.swift in Sources */,
 				D80434CF2C18AA3A007935BC /* NomifyApp.swift in Sources */,
 				D866ED032C1B7C610060B6B8 /* SearchBar.swift in Sources */,
 				D866ED052C1BA50E0060B6B8 /* SideBar.swift in Sources */,
+				D866ED0B2C1F96550060B6B8 /* LoadingSpinner.swift in Sources */,
 				D80434FD2C18E16B007935BC /* CustomTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -578,6 +603,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Nomify/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Nomify;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to the camera to scan your barcode.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -614,6 +640,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Nomify/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Nomify;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to the camera to scan your barcode.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -779,6 +806,22 @@
 				minimumVersion = 7.1.0;
 			};
 		};
+		D866ED122C1F9E2D0060B6B8 /* XCRemoteSwiftPackageReference "generative-ai-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/generative-ai-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.4;
+			};
+		};
+		D866ED152C220B900060B6B8 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -841,6 +884,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D80435052C18F28A007935BC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
+		};
+		D866ED162C220B900060B6B8 /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D866ED152C220B900060B6B8 /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

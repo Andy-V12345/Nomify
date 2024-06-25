@@ -5,7 +5,6 @@ struct SearchBar: View {
         
     @Binding var text: String
     @State var placeholder: String
-
     
     var body: some View {
         HStack {
@@ -13,6 +12,7 @@ struct SearchBar: View {
                 .font(.footnote)
             
             CustomTextField(placeholder: Text(placeholder).foregroundColor(.gray), text: $text, isSecure: false)
+                
             
             if text != "" {
                 Button(action: {

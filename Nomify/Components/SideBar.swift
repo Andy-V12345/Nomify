@@ -56,7 +56,7 @@ struct SideBar: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .bold()
                                 .font(.title)
-                            Text((authInfo.user?.email)!)
+                            Text(authInfo.user?.email ?? "")
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .fontWeight(.semibold)
                         } //: Text VStack

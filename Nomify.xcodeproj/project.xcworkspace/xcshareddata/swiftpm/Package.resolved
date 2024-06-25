@@ -1,5 +1,5 @@
 {
-  "originHash" : "978c0e047eb004b6058bb3607e59351f1ae68291af62ed69883c5913969cdc35",
+  "originHash" : "94c1491ec0d8791c55bca298f3b9b18b4837b9cca8fd8ecabfcfecca67a1fb46",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -38,12 +38,30 @@
       }
     },
     {
+      "identity" : "codescanner",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/twostraws/CodeScanner",
+      "state" : {
+        "revision" : "34da57fb63b47add20de8a85da58191523ccce57",
+        "version" : "2.5.0"
+      }
+    },
+    {
       "identity" : "firebase-ios-sdk",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/firebase-ios-sdk",
       "state" : {
         "revision" : "8bcaf973b1d84e119b7c7c119abad72ed460979f",
         "version" : "10.27.0"
+      }
+    },
+    {
+      "identity" : "generative-ai-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/google/generative-ai-swift",
+      "state" : {
+        "revision" : "54784005b57c2235a7669e0c12e8dafa68f0ca5f",
+        "version" : "0.5.4"
       }
     },
     {
