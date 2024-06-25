@@ -1,1 +1,4 @@
-*.plist
+GenerativeAI-Info.plist
+Info.plist
+GoogleService-Info.plist
+.DS_Store

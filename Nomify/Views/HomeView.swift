@@ -9,15 +9,20 @@ import SwiftUI
 import FirebaseAuth
 import CodeScanner
 
+enum UseState {
+    case normal, loading, error, showData
+}
+
 struct HomeView: View {
     
     @State var isConfiguring = false
     @State private var isViewingProfile = false
-    @State var isLoading = false
-    @State var showData = false
-    @State var isErrorNomifying = false
+    @State var loadingText = ""
     @State var isSearchDisabled = true
+    @State var isScanningDisabled = false
     @State var isScanning = false
+    @State var errorText = ""
+    @State var useState: UseState = .normal
     
     @FocusState var isSearchFocused: Bool
     
@@ -31,6 +36,39 @@ struct HomeView: View {
     @Environment(AuthInfo.self) private var authInfo
     
     let firebaseServices = FirebaseServices()
+    
+    func loadFoodAnalysis(foodString: String) async {
+        do {
+            print("getting analysis")
+            if let foodAnalysis = try await GeminiServices.getAnalysis(foodItem: foodString, allergenProfile: authInfo.userInfo!.allergenProfile) {
+                recommendation = foodAnalysis.recommendation
+                overallRisk = Double(foodAnalysis.overallRiskRating)
+                
+                riskRatings.removeAll()
+                
+                for (allergen, risk) in foodAnalysis.riskRating {
+                    riskRatings[allergen] = Double(risk)
+                }
+                
+                alternatives = foodAnalysis.alternatives
+                
+                useState = .showData
+            }
+            else {
+                
+                useState = .error
+                errorText = "Couldn't find the food you're looking for!"
+            }
+            
+            isSearchDisabled = false
+        }
+        catch {
+            print("error analyzing food")
+            useState = .error
+            errorText = "Something went wrong! Please try again."
+            isSearchDisabled = false
+        }
+    }
     
     var body: some View {
         GeometryReader { metrics in
@@ -66,44 +104,11 @@ struct HomeView: View {
                                     foodItem = foodSearch.trimmingCharacters(in: .whitespacesAndNewlines)
                                     isSearchFocused = false
                                     isSearchDisabled = true
-                                    showData = false
-                                    isLoading = true
+                                    useState = .loading
+                                    loadingText = "Nomifying your food!"
                                     
                                     Task {
-                                        do {
-                                            print("getting analysis")
-                                            if let foodAnalysis = try await GeminiServices.getAnalysis(foodItem: foodItem, allergenProfile: authInfo.userInfo!.allergenProfile) {
-                                                recommendation = foodAnalysis.recommendation
-                                                overallRisk = Double(foodAnalysis.overallRiskRating)
-                                                
-                                                riskRatings.removeAll()
-                                                
-                                                for (allergen, risk) in foodAnalysis.riskRating {
-                                                    riskRatings[allergen] = Double(risk)
-                                                }
-                                                
-                                                alternatives = foodAnalysis.alternatives
-                                                
-                                                isLoading = false
-                                                isErrorNomifying = false
-                                                showData = true
-                                            }
-                                            else {
-                                                
-                                                isLoading = false
-                                                showData = true
-                                                isErrorNomifying = true
-                                            }
-                                            
-                                            isSearchDisabled = false
-                                        }
-                                        catch {
-                                            print("error")
-                                            isLoading = false
-                                            showData = true
-                                            isErrorNomifying = true
-                                            isSearchDisabled = false
-                                        }
+                                        await loadFoodAnalysis(foodString: foodItem)
                                     }
                                 }, label: {
                                     Text("Search")
@@ -114,8 +119,8 @@ struct HomeView: View {
                                         .frame(maxWidth: .infinity)
                                         .background(RoundedRectangle(cornerRadius: 10).fill(Color("themeGreen")))
                                 })
-                                .disabled(foodSearch == "" || isSearchDisabled)
-                                .opacity(foodSearch == "" || isSearchDisabled ? 0.6 : 1)
+                                .disabled(foodSearch.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isSearchDisabled)
+                                .opacity(foodSearch.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isSearchDisabled ? 0.6 : 1)
                                 
                                 Button(action: {
                                     // TODO: BARCODE SCANNER
@@ -125,12 +130,53 @@ struct HomeView: View {
                                         .foregroundStyle(.black)
                                         .font(.title)
                                 })
+                                .disabled(isScanningDisabled)
+                                .opacity(isScanningDisabled ? 0.4 : 1)
                             } //: HStack
                         } //: VStack
                     } //: Header + SearchBar VStack
                     
-                    if showData {
+                    if useState == .normal {
+                        Text("Search a food item or scan a barcode, and Nomify will give you an analysis based on your allergen profile!")
+                            .foregroundStyle(.gray)
+                            .italic()
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         
+                        Spacer()
+                    }
+                    else if useState == .loading {
+                        Spacer()
+                        
+                        VStack(spacing: 10) {
+                            LoadingSpinner(size: 25)
+                            
+                            Text(loadingText)
+                                .fontWeight(.semibold)
+                                .foregroundStyle(Color("themeGreen"))
+                                .italic()
+                            
+                        }
+                        
+                        Spacer()
+                    }
+                    else if useState == .error {
+                        Spacer()
+                        
+                        VStack(spacing: 5) {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .font(.headline)
+                            
+                            Text(errorText)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .font(.subheadline)
+                                
+                        }
+                        .bold()
+                        .foregroundStyle(Color("themeGreen"))
+                        
+                        Spacer()
+                    }
+                    else {
                         VStack {
                             Text("Results for \"\(foodItem)\"")
                                 .bold()
@@ -144,12 +190,42 @@ struct HomeView: View {
                         } //: Result + Disclaimer Text VStack
                         .foregroundStyle(.black)
                         
-                        if !isErrorNomifying {
-                            
-                            ScrollView {
-                                VStack(spacing: 15) {
+                        ScrollView {
+                            VStack(spacing: 15) {
+                                VStack(spacing: 8) {
+                                    Text("Risk Rating")
+                                        .bold()
+                                        .foregroundStyle(Color("themeGreen"))
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    
+                                    Spacer()
+                                    
+                                    VStack(spacing: 20) {
+                                        AllergenRiskRating(allergen: "Overall Risk", riskRating: overallRisk)
+                                        
+                                        Text("\(recommendation)")
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .fontWeight(.semibold)
+                                            .font(.subheadline)
+                                            .foregroundStyle(.black)
+                                        
+                                        if !riskRatings.isEmpty {
+                                            Divider()
+                                            
+                                            ForEach(Array(riskRatings.keys), id: \.self) { allergen in
+                                                AllergenRiskRating(allergen: allergen.capitalized, riskRating: riskRatings[allergen]!)
+                                            }
+                                        }
+                                        
+                                    }
+                                } //: Risk Ratings VStack
+                                .padding(20)
+                                .background(Color.gray.opacity(0.05).clipShape(RoundedRectangle(cornerRadius: 15)))
+                                
+                                if !alternatives.isEmpty {
+                                    
                                     VStack(spacing: 8) {
-                                        Text("Risk Rating")
+                                        Text("Alternative Brands/Recipes")
                                             .bold()
                                             .foregroundStyle(Color("themeGreen"))
                                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -157,105 +233,39 @@ struct HomeView: View {
                                         Spacer()
                                         
                                         VStack(spacing: 20) {
-                                            AllergenRiskRating(allergen: "Overall Risk", riskRating: overallRisk)
-                                            
-                                            Text("\(recommendation)")
-                                                .frame(maxWidth: .infinity, alignment: .leading)
-                                                .fontWeight(.semibold)
-                                                .font(.subheadline)
-                                                .foregroundStyle(.black)
-                                            
-                                            if !riskRatings.isEmpty {
-                                                Divider()
-                                                
-                                                ForEach(Array(riskRatings.keys), id: \.self) { allergen in
-                                                    AllergenRiskRating(allergen: allergen.capitalized, riskRating: riskRatings[allergen]!)
-                                                }
+                                            ForEach(0..<alternatives.count, id:\.self) { i in
+                                                AlternativesLink(name: alternatives[i].name, url: alternatives[i].url)
                                             }
-                                            
                                         }
-                                    } //: Risk Ratings VStack
+                                    }
                                     .padding(20)
                                     .background(Color.gray.opacity(0.05).clipShape(RoundedRectangle(cornerRadius: 15)))
-                                    
-                                    if !alternatives.isEmpty {
-                                        
-                                        VStack(spacing: 8) {
-                                            Text("Alternative Brands/Recipes")
-                                                .bold()
-                                                .foregroundStyle(Color("themeGreen"))
-                                                .frame(maxWidth: .infinity, alignment: .leading)
-                                            
-                                            Spacer()
-                                            
-                                            VStack(spacing: 20) {
-                                                ForEach(0..<alternatives.count, id:\.self) { i in
-                                                    AlternativesLink(name: alternatives[i].name, url: alternatives[i].url)
-                                                }
-                                            }
-                                        }
-                                        .padding(20)
-                                        .background(Color.gray.opacity(0.05).clipShape(RoundedRectangle(cornerRadius: 15)))
-                                    }
-                                    
-                                } //: ScrollView VStack
-                            } //: ScrollView
-                            .scrollIndicators(.hidden)
-                        }
-                        else {
-                            Spacer()
-                            
-                            VStack(spacing: 5) {
-                                Image(systemName: "exclamationmark.triangle.fill")
-                                    .font(.headline)
+                                }
                                 
-                                Text("Apologies, something went wrong! Please try again.")
-                                    .frame(maxWidth: .infinity, alignment: .center)
-                                    .font(.subheadline)
-                                    
-                            }
-                            .bold()
-                            .foregroundStyle(Color("themeGreen"))
-                            
-                            Spacer()
-                        }
-                    }
-                    else {
-                        if isLoading {
-                            Spacer()
-                            
-                            VStack(spacing: 10) {
-                                LoadingSpinner(size: 25)
-                                
-                                Text("Nomifying your food")
-                                    .fontWeight(.semibold)
-                                    .foregroundStyle(Color("themeGreen"))
-                                    .italic()
-                                
-                            }
-                            
-                            Spacer()
-                        }
-                        else {
-                            Text("Search a food item or scan a barcode, and Nomify will give you an analysis based on your allergen profile!")
-                                .foregroundStyle(.gray)
-                                .italic()
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            
-                            Spacer()
-                        }
-                        
+                            } //: ScrollView VStack
+                        } //: ScrollView
+                        .scrollIndicators(.hidden)
                     }
                     
                 } //: VStack
                 .padding(.vertical, 20)
                 .padding(.horizontal, 25)
                 .onChange(of: foodSearch) { old, new in
-                    if new == "" {
+                    if new.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                         isSearchDisabled = true
                     }
                     else {
                         isSearchDisabled = false
+                    }
+                }
+                .onChange(of: useState) { old, new in
+                    if new == .loading {
+                        isSearchDisabled = true
+                        isScanningDisabled = true
+                    }
+                    else {
+                        isSearchDisabled = foodSearch.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                        isScanningDisabled = false
                     }
                 }
                 .onAppear {
@@ -269,7 +279,7 @@ struct HomeView: View {
                         }
                     }
                     
-                    if foodSearch == "" {
+                    if foodSearch.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                         isSearchDisabled = true
                     }
                 }
@@ -281,7 +291,31 @@ struct HomeView: View {
                         switch result {
                         case .success(let result):
                             let details = result.string
-                            print(details)
+                            let barcodeId = String(details.dropFirst())
+                            
+                            useState = .loading
+                            loadingText = "Processing your barcode!"
+                            
+                            Task {
+                                do {
+                                    if let food = try await USDAServices.getFoodData(barcodeId: barcodeId) {
+                                        // TODO: RUN GEMINI WITH FOOD RESULT
+                                        
+                                        loadingText = "Nomifying your food!"
+                                        
+                                        foodItem = "\(food.brandName) \(food.description)"
+                                        await loadFoodAnalysis(foodString: foodItem)
+                                    }
+                                    else {
+                                        useState = .error
+                                        errorText = "Couldn't find your food item!"
+                                    }
+                                }
+                                catch {
+                                    useState = .error
+                                    errorText = "Couldn't find your food item!"
+                                }
+                            }
                         case .failure(let error):
                             print("error scanning: \(error.localizedDescription)")
                         }
@@ -297,6 +331,7 @@ struct HomeView: View {
                 isSearchFocused = false
             }
         }
+        .ignoresSafeArea(.keyboard)
         
     }
 }

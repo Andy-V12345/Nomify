@@ -7,25 +7,6 @@
 
 import Foundation
 
-enum APIKey {
-    static var value: String {
-        guard let filePath = Bundle.main.path(forResource: "GenerativeAI-Info", ofType: "plist")
-        else {
-            fatalError("Couldn't find file 'GenerativeAI-Info.plist'.")
-        }
-        let plist = NSDictionary(contentsOfFile: filePath)
-        guard let value = plist?.object(forKey: "Api_key") as? String else {
-            fatalError("Couldn't find key 'Api_key' in 'GenerativeAI-Info.plist'.")
-        }
-        if value.starts(with: "_") || value.isEmpty {
-            fatalError(
-                "Follow the instructions at https://ai.google.dev/tutorials/setup to get an API key."
-            )
-        }
-        return value
-    }
-}
-
 struct GenerateContentRequest: Encodable {
     var contents: [GeminiContent]
     var systemInstruction: GeminiContent
@@ -68,7 +49,7 @@ struct Alternative: Codable {
 class GeminiServices {
     
     public static func getAnalysis(foodItem: String, allergenProfile: [String:String]) async throws -> FoodAnalysis? {
-        var request = URLRequest(url: URL(string: "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent?key=\(APIKey.value)")!)
+        var request = URLRequest(url: URL(string: "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent?key=\(APIKey.geminiValue)")!)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         
