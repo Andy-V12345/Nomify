@@ -287,40 +287,64 @@ struct HomeView: View {
                     AllergenProfileView(allergenProfile: authInfo.userInfo?.allergenProfile)
                 })
                 .sheet(isPresented: $isScanning, content: {
-                    CodeScannerView(codeTypes: [.upce, .ean13], completion: { result in
-                        switch result {
-                        case .success(let result):
-                            let details = result.string
-                            let barcodeId = String(details.dropFirst())
+                    VStack(spacing: 20) {
+                        HStack {
+                            Spacer()
                             
-                            useState = .loading
-                            loadingText = "Processing your barcode!"
+                            Text("Scan a barcode!")
+                                .font(.headline)
+                                .bold()
                             
-                            Task {
-                                do {
-                                    if let food = try await USDAServices.getFoodData(barcodeId: barcodeId) {
-                                        // TODO: RUN GEMINI WITH FOOD RESULT
-                                        
-                                        loadingText = "Nomifying your food!"
-                                        
-                                        foodItem = "\(food.brandName) \(food.description)"
-                                        await loadFoodAnalysis(foodString: foodItem)
+                            Spacer()
+                            
+                            Button(action: {
+                                isScanning = false
+                            }, label: {
+                                Image(systemName: "xmark")
+                            })
+                            
+                        }
+                        .foregroundStyle(Color("themeGreen"))
+                        .padding(.horizontal)
+                        
+                        
+                        CodeScannerView(codeTypes: [.upce, .ean13], completion: { result in
+                            switch result {
+                            case .success(let result):
+                                let details = result.string
+                                let barcodeId = String(details.dropFirst())
+                                
+                                useState = .loading
+                                loadingText = "Processing your barcode!"
+                                
+                                Task {
+                                    do {
+                                        if let food = try await USDAServices.getFoodData(barcodeId: barcodeId) {
+                                            // TODO: RUN GEMINI WITH FOOD RESULT
+                                            
+                                            loadingText = "Nomifying your food!"
+                                            
+                                            foodItem = "\(food.brandName) \(food.description)"
+                                            await loadFoodAnalysis(foodString: foodItem)
+                                        }
+                                        else {
+                                            useState = .error
+                                            errorText = "Couldn't find your food item!"
+                                        }
                                     }
-                                    else {
+                                    catch {
                                         useState = .error
                                         errorText = "Couldn't find your food item!"
                                     }
                                 }
-                                catch {
-                                    useState = .error
-                                    errorText = "Couldn't find your food item!"
-                                }
+                            case .failure(let error):
+                                print("error scanning: \(error.localizedDescription)")
                             }
-                        case .failure(let error):
-                            print("error scanning: \(error.localizedDescription)")
-                        }
-                        isScanning = false
-                    })
+                            isScanning = false
+                        })
+                    }
+                    .padding(.top, 20)
+                    .background(Color.white)
                 })
                 
                 SideBar(isViewingProfile: $isViewingProfile, isConfiguring: $isConfiguring)
