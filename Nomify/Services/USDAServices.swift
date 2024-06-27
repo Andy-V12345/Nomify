@@ -13,9 +13,12 @@ struct FoodResult: Decodable {
 }
 
 struct Food: Decodable {
+    var dataType: String
     var description: String
-    var brandName: String
+    var brandName: String?
 }
+
+
 
 class USDAServices {
     

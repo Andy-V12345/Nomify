@@ -1,5 +1,5 @@
 //
-//  FirebaseServices.swift
+//  FirestoreServices.swift
 //  Nomify
 //
 //  Created by Andy Vu on 6/12/24.
@@ -15,7 +15,7 @@ struct UserInfo: Codable {
     var isConfigured: Bool
 }
 
-class FirebaseServices {
+class FirestoreServices {
     private let db = Firestore.firestore()
     
     // MARK: getUserInfo(uid: String) -> UserInfo?
@@ -41,3 +41,4 @@ class FirebaseServices {
         }
     }
 }
+

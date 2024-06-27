@@ -20,6 +20,9 @@ struct HomeView: View {
     @State var loadingText = ""
     @State var isSearchDisabled = true
     @State var isScanningDisabled = false
+    @State var isTakingPhoto = false
+    @State var isPhotoDisabled = false
+    @State var imageData: Data = .init(capacity: 0)
     @State var isScanning = false
     @State var errorText = ""
     @State var useState: UseState = .normal
@@ -35,7 +38,7 @@ struct HomeView: View {
     
     @Environment(AuthInfo.self) private var authInfo
     
-    let firebaseServices = FirebaseServices()
+    let firestoreServices = FirestoreServices()
     
     func loadFoodAnalysis(foodString: String) async {
         do {
@@ -98,9 +101,8 @@ struct HomeView: View {
                             SearchBar(text: $foodSearch, placeholder: "Search for a food")
                                 .focused($isSearchFocused)
                                 
-                            HStack(spacing: 25) {
+                            HStack(spacing: 15) {
                                 Button(action: {
-                                    // TODO: SEARCH FOOD ITEM
                                     foodItem = foodSearch.trimmingCharacters(in: .whitespacesAndNewlines)
                                     isSearchFocused = false
                                     isSearchDisabled = true
@@ -123,7 +125,16 @@ struct HomeView: View {
                                 .opacity(foodSearch.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isSearchDisabled ? 0.6 : 1)
                                 
                                 Button(action: {
-                                    // TODO: BARCODE SCANNER
+                                    isTakingPhoto = true
+                                }, label: {
+                                    Image(systemName: "camera.viewfinder")
+                                        .foregroundStyle(.black)
+                                        .font(.title)
+                                })
+                                .disabled(isPhotoDisabled)
+                                .opacity(isPhotoDisabled ? 0.4 : 1)
+                                
+                                Button(action: {
                                     isScanning = true
                                 }, label: {
                                     Image(systemName: "barcode.viewfinder")
@@ -262,15 +273,38 @@ struct HomeView: View {
                     if new == .loading {
                         isSearchDisabled = true
                         isScanningDisabled = true
+                        isPhotoDisabled = true
                     }
                     else {
                         isSearchDisabled = foodSearch.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
                         isScanningDisabled = false
+                        isPhotoDisabled = false
+                    }
+                }
+                .onChange(of: isTakingPhoto) { old, new in
+                    if old && !new && imageData.count != 0 {
+                        // TODO: PROCESS imageData
+                        
+                        useState = .loading
+                        loadingText = "Analyzing your photo!"
+                        
+                        Task {
+                            if let processedFood = await APIServices.analyzeFoodImage(encodedImage: imageData.base64) {
+                                loadingText = "Nomifying your food!"
+                                foodItem = processedFood.foodItem
+                                
+                                await loadFoodAnalysis(foodString: processedFood.foodItem)
+                            }
+                            else {
+                                useState = .error
+                                errorText = "Couldn't identify a food item!"
+                            }
+                        }
                     }
                 }
                 .onAppear {
                     Task {
-                        let userInfo = await firebaseServices.getUserInfo(uid: authInfo.user!.uid)
+                        let userInfo = await firestoreServices.getUserInfo(uid: authInfo.user!.uid)
                         
                         authInfo.userInfo = userInfo
                         
@@ -285,6 +319,9 @@ struct HomeView: View {
                 }
                 .fullScreenCover(isPresented: $isConfiguring, content: {
                     AllergenProfileView(allergenProfile: authInfo.userInfo?.allergenProfile)
+                })
+                .sheet(isPresented: $isTakingPhoto, content: {
+                    ImagePicker(selectedImage: $imageData, show: $isTakingPhoto, sourceType: .camera)
                 })
                 .sheet(isPresented: $isScanning, content: {
                     VStack(spacing: 20) {
@@ -320,11 +357,10 @@ struct HomeView: View {
                                 Task {
                                     do {
                                         if let food = try await USDAServices.getFoodData(barcodeId: barcodeId) {
-                                            // TODO: RUN GEMINI WITH FOOD RESULT
                                             
                                             loadingText = "Nomifying your food!"
                                             
-                                            foodItem = "\(food.brandName) \(food.description)"
+                                            foodItem = "\(food.brandName ?? "") \(food.description)"
                                             await loadFoodAnalysis(foodString: foodItem)
                                         }
                                         else {

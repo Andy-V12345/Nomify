@@ -16,7 +16,7 @@ struct AllergenProfileView: View {
     
     @State var allergens: [String] = ["Dairy", "Eggs", "Fish", "Shellfish", "Tree Nuts", "Peanuts", "Wheat", "Soybeans", "Sesame"]
     
-    let firebaseServices = FirebaseServices()
+    let firestoreServices = FirestoreServices()
     
     init(allergenProfile: [String: String]?) {
         if allergenProfile == nil {
@@ -59,7 +59,7 @@ struct AllergenProfileView: View {
                             
                             Button(action: {
                                 let newUserInfo = UserInfo(allergenProfile: allergenProfile, isConfigured: true)
-                                let success = firebaseServices.writeUserInfo(uid: authInfo.user!.uid, userInfo: newUserInfo)
+                                let success = firestoreServices.writeUserInfo(uid: authInfo.user!.uid, userInfo: newUserInfo)
                                 if success {
                                     authInfo.userInfo = newUserInfo
                                     dismiss()
