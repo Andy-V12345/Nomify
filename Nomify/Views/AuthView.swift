@@ -23,6 +23,8 @@ struct AuthView: View {
     @State var isLogIn = true
     @State var isLoading = false
     
+    @State var isForgotPassword = false
+    
     @FocusState var isEmailFocused: Bool
     @FocusState var isPasswordFocused: Bool
     @FocusState var isConfirmPasswordFocused: Bool
@@ -138,6 +140,9 @@ struct AuthView: View {
                 hideKeyboard()
                 isError = false
             }
+            .sheet(isPresented: $isForgotPassword, content: {
+                ForgotPasswordView()
+            })
         } //: GeometryReader
     } //: Body
     
@@ -176,6 +181,7 @@ struct AuthView: View {
             HStack {
                 Button(action: {
                     // TODO: FORGOT PASSWORD FEATURE
+                    isForgotPassword = true
                 }, label: {
                     Text("Forgot password?")
                         .italic()
@@ -401,7 +407,6 @@ struct AuthView: View {
                 .font(.subheadline)
             
             Button(action: {
-                // TODO: SIGN IN WITH GOOGLE FEATURE
                 googleLogIn()
             }, label: {
                 HStack(spacing: 8) {

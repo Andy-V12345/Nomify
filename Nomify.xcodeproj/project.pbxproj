@@ -56,6 +56,7 @@
 		D88291152C2C76170052D24E /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = D88291142C2C76170052D24E /* FirebaseStorage */; };
 		D88291172C2C78D80052D24E /* APIServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88291162C2C78D80052D24E /* APIServices.swift */; };
 		D88291192C2C7E1E0052D24E /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88291182C2C7E1E0052D24E /* ImagePicker.swift */; };
+		D886E8CA2C3A23930054DD61 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D886E8C92C3A23930054DD61 /* ForgotPasswordView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +108,7 @@
 		D88291122C2B43DE0052D24E /* USDAServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USDAServices.swift; sourceTree = "<group>"; };
 		D88291162C2C78D80052D24E /* APIServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServices.swift; sourceTree = "<group>"; };
 		D88291182C2C7E1E0052D24E /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		D886E8C92C3A23930054DD61 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +221,7 @@
 				D80434F92C18DE11007935BC /* AuthView.swift */,
 				D8584DBF2C19409A00898175 /* HomeView.swift */,
 				D8584DCF2C1A246C00898175 /* AllergenProfileView.swift */,
+				D886E8C92C3A23930054DD61 /* ForgotPasswordView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -453,6 +456,7 @@
 				D866ED032C1B7C610060B6B8 /* SearchBar.swift in Sources */,
 				D866ED052C1BA50E0060B6B8 /* SideBar.swift in Sources */,
 				D866ED0B2C1F96550060B6B8 /* LoadingSpinner.swift in Sources */,
+				D886E8CA2C3A23930054DD61 /* ForgotPasswordView.swift in Sources */,
 				D80434FD2C18E16B007935BC /* CustomTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -630,9 +634,11 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -667,9 +673,11 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

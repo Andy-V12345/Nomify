@@ -40,5 +40,15 @@ class FirestoreServices {
             return false
         }
     }
+    
+    // MARK: deleteUserInfo(uid: String)
+    func deleteUserInfo(uid: String) async throws {
+        do {
+            try await db.collection("users").document(uid).delete()
+        }
+        catch {
+            throw error
+        }
+    }
 }
 

@@ -14,10 +14,17 @@ struct SideBar: View {
     @Environment(AuthInfo.self) var authInfo
     @Binding var isConfiguring: Bool
     
-    var sideBarWidth = UIScreen.main.bounds.size.width * 0.7
+    var sideBarWidth = UIScreen.main.bounds.size.width * 0.8
+    
+    @State var isDeleteAlert = false
+    @State var isLoading = false
+    
+    @State var passwordText = ""
+    @State var isDeletingError = false
     
     var body: some View {
         ZStack {
+            
             GeometryReader { _ in
                 EmptyView()
             }
@@ -102,7 +109,7 @@ struct SideBar: View {
                         Spacer()
                         
                         Button(action: {
-                            // TODO: DELETE ACCOUNT BUTTON
+                            isDeleteAlert = true
                         }, label: {
                             Text("Delete Account")
                                 .frame(maxWidth: .infinity)
@@ -126,8 +133,66 @@ struct SideBar: View {
                 
                 Spacer()
             }
+            
+            if isLoading {
+                Color.black.opacity(0.6)
+                    .ignoresSafeArea()
+                
+                LoadingSpinner(size: 25)
+            }
         }
         .ignoresSafeArea(edges: .all)
+        .preferredColorScheme(.light)
+        .alert("Error", isPresented: $isDeletingError) {
+            Button(role: .cancel) {
+                
+            } label: {
+                Text("Cancel")
+            }
+            
+            Button(role: .destructive) {
+                isDeleteAlert = true
+            } label: {
+                Text("Try Again")
+            }
+            
+        } message: {
+            Text("Something went wrong when deleting your account! Maybe your password was incorrect.")
+        }
+        .alert("Are You Sure?", isPresented: $isDeleteAlert) {
+            Button(role: .destructive) {
+                // TODO: DELETE ACCOUNT
+                isLoading = true
+                Task {
+                    if passwordText.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
+                        do {
+                            try await authInfo.deleteAccount(password: passwordText)
+                        }
+                        catch {
+                            isDeletingError = true
+                        }
+                    }
+                    isLoading = false
+                    passwordText = ""
+                }
+            } label: {
+                Text("Delete")
+            }
+            
+            Button(role: .cancel) {
+                
+            } label: {
+                Text("Cancel")
+            }
+            
+            SecureField("Password", text: $passwordText)
+                .font(.subheadline)
+            
+        } message: {
+            
+            Text("This will permanently delete your account and all of your data! Please enter your password to delete your account.")
+            
+        }
         
     }
 }

@@ -37,6 +37,25 @@ class AuthInfo {
         try await Auth.auth().createUser(withEmail: email, password: password)
     }
     
+    @MainActor
+    func deleteAccount(password: String) async throws {
+        let firestore = FirestoreServices()
+        
+        let uid = self.user!.uid
+        let creds = EmailAuthProvider.credential(withEmail: self.user!.email ?? "", password: password)
+        
+        do {
+            let _ = try await self.user?.reauthenticate(with: creds)
+            
+            try await firestore.deleteUserInfo(uid: uid)
+            
+            try await self.user?.delete()
+        }
+        catch {
+            throw error
+        }
+    }
+    
     
     
 }

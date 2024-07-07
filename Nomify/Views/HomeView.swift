@@ -68,7 +68,7 @@ struct HomeView: View {
         catch {
             print("error analyzing food")
             useState = .error
-            errorText = "Something went wrong! Please try again."
+            errorText = "We had trouble Nomifying your food! Please try again."
             isSearchDisabled = false
         }
     }
@@ -99,6 +99,7 @@ struct HomeView: View {
                         
                         VStack(spacing: 15) {
                             SearchBar(text: $foodSearch, placeholder: "Search for a food")
+                                .disabled(useState == .loading)
                                 .focused($isSearchFocused)
                                 
                             HStack(spacing: 15) {
@@ -125,6 +126,7 @@ struct HomeView: View {
                                 .opacity(foodSearch.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isSearchDisabled ? 0.6 : 1)
                                 
                                 Button(action: {
+                                    isSearchFocused = false
                                     isTakingPhoto = true
                                 }, label: {
                                     Image(systemName: "camera.viewfinder")
@@ -135,6 +137,7 @@ struct HomeView: View {
                                 .opacity(isPhotoDisabled ? 0.4 : 1)
                                 
                                 Button(action: {
+                                    isSearchFocused = false
                                     isScanning = true
                                 }, label: {
                                     Image(systemName: "barcode.viewfinder")
@@ -148,10 +151,16 @@ struct HomeView: View {
                     } //: Header + SearchBar VStack
                     
                     if useState == .normal {
-                        Text("Search a food item or scan a barcode, and Nomify will give you an analysis based on your allergen profile!")
-                            .foregroundStyle(.gray)
-                            .italic()
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        HStack {
+                            Text("Search for a food item, scan a barcode, or take a picture of your food, and we'll Nomify it for you!")
+                                .foregroundStyle(.gray)
+                                .italic()
+                                .frame(maxWidth: metrics.size.width * 0.8, alignment: .leading)
+                                .multilineTextAlignment(.leading)
+                                
+                            Spacer()
+                        }
                         
                         Spacer()
                     }
@@ -173,17 +182,18 @@ struct HomeView: View {
                     else if useState == .error {
                         Spacer()
                         
-                        VStack(spacing: 5) {
+                        VStack(spacing: 10) {
                             Image(systemName: "exclamationmark.triangle.fill")
-                                .font(.headline)
+                                .font(.title3)
                             
                             Text(errorText)
-                                .frame(maxWidth: .infinity, alignment: .center)
+                                .frame(maxWidth: metrics.size.width * 0.5, alignment: .center)
+                                .multilineTextAlignment(.center)
                                 .font(.subheadline)
                                 
                         }
                         .bold()
-                        .foregroundStyle(Color("themeGreen"))
+                        .foregroundStyle(.red)
                         
                         Spacer()
                     }
@@ -297,8 +307,10 @@ struct HomeView: View {
                             }
                             else {
                                 useState = .error
-                                errorText = "Couldn't identify a food item!"
+                                errorText = "Couldn't recognize a food item from the image you took!"
                             }
+                            
+                            imageData = Data(capacity: 0)
                         }
                     }
                 }
@@ -370,7 +382,7 @@ struct HomeView: View {
                                     }
                                     catch {
                                         useState = .error
-                                        errorText = "Couldn't find your food item!"
+                                        errorText = "We had trouble processing your barcode! Please try again."
                                     }
                                 }
                             case .failure(let error):
