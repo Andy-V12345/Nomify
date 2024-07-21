@@ -124,14 +124,22 @@ struct AuthView: View {
                     }
                     
                     Spacer()
+                    
+                    Button(action: {
+                        authInfo.state = .guest
+                    }, label: {
+                        Text("Continue as a guest")
+                            .foregroundStyle(Color("themeGreen"))
+                            .font(.subheadline)
+                    })
                 } //: VStack
-                .padding(.vertical, 20)
+                .padding(.top, 20)
+                .padding(.bottom, 15)
                 .padding(.horizontal, 25)
                 .toast(isPresenting: $isError, duration: 3, alert: {
                     AlertToast(displayMode: .hud, type: .error(Color.red), subTitle: errorMsg)
                 })
                 .disabled(isLoading)
-                .clipped()
                 .opacity(isLoading ? 0.3 : 1)
                 
                 

@@ -95,6 +95,7 @@
 		D8584DCD2C1A1ADA00898175 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		D8584DCF2C1A246C00898175 /* AllergenProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergenProfileView.swift; sourceTree = "<group>"; };
 		D8584DD52C1A282300898175 /* FirestoreServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreServices.swift; sourceTree = "<group>"; };
+		D862ECAF2C3DC87D00477DFB /* Nomify.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Nomify.entitlements; sourceTree = "<group>"; };
 		D866ED002C1A3A2A0060B6B8 /* AllergenPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergenPanel.swift; sourceTree = "<group>"; };
 		D866ED022C1B7C610060B6B8 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		D866ED042C1BA50E0060B6B8 /* SideBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBar.swift; sourceTree = "<group>"; };
@@ -186,6 +187,7 @@
 				D80434D42C18AA3C007935BC /* Preview Content */,
 				D866ED0E2C1F9C350060B6B8 /* GenerativeAI-Info.plist */,
 				D882910E2C2B43470052D24E /* USDAService-Info.plist */,
+				D862ECAF2C3DC87D00477DFB /* Nomify.entitlements */,
 			);
 			path = Nomify;
 			sourceTree = "<group>";
@@ -622,6 +624,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Nomify/Nomify.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Nomify/Preview Content\"";
@@ -647,6 +651,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = andyvu.com.Nomify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -661,6 +666,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Nomify/Nomify.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Nomify/Preview Content\"";
@@ -686,6 +693,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = andyvu.com.Nomify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;

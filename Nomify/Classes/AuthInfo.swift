@@ -10,7 +10,7 @@ import FirebaseAuth
 import SwiftUI
 
 enum AuthState {
-    case undefined, notAuthorized, authorized
+    case undefined, notAuthorized, authorized, guest
 }
 
 @Observable

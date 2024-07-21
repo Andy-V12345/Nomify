@@ -315,18 +315,23 @@ struct HomeView: View {
                     }
                 }
                 .onAppear {
-                    Task {
-                        let userInfo = await firestoreServices.getUserInfo(uid: authInfo.user!.uid)
-                        
-                        authInfo.userInfo = userInfo
-                        
-                        if userInfo == nil || !userInfo!.isConfigured {
-                            isConfiguring = true
-                        }
+                    if authInfo.state == .guest {
+                        isConfiguring = true
                     }
-                    
-                    if foodSearch.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                        isSearchDisabled = true
+                    else {
+                        Task {
+                            let userInfo = await firestoreServices.getUserInfo(uid: authInfo.user!.uid)
+                            
+                            authInfo.userInfo = userInfo
+                            
+                            if userInfo == nil || !userInfo!.isConfigured {
+                                isConfiguring = true
+                            }
+                        }
+                        
+                        if foodSearch.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                            isSearchDisabled = true
+                        }
                     }
                 }
                 .fullScreenCover(isPresented: $isConfiguring, content: {

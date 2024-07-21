@@ -12,6 +12,8 @@ struct AllergenProfileView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(AuthInfo.self) private var authInfo
     
+    @State var showAlert = false
+    
     @State var allergenProfile: [String: String]
     
     @State var allergens: [String] = ["Dairy", "Eggs", "Fish", "Shellfish", "Tree Nuts", "Peanuts", "Wheat", "Soybeans", "Sesame"]
@@ -58,14 +60,19 @@ struct AllergenProfileView: View {
                             Spacer()
                             
                             Button(action: {
-                                let newUserInfo = UserInfo(allergenProfile: allergenProfile, isConfigured: true)
-                                let success = firestoreServices.writeUserInfo(uid: authInfo.user!.uid, userInfo: newUserInfo)
-                                if success {
-                                    authInfo.userInfo = newUserInfo
-                                    dismiss()
+                                if authInfo.state == .guest {
+                                    showAlert = true
                                 }
                                 else {
-                                    print("Error saving user info")
+                                    let newUserInfo = UserInfo(allergenProfile: allergenProfile, isConfigured: true)
+                                    let success = firestoreServices.writeUserInfo(uid: authInfo.user!.uid, userInfo: newUserInfo)
+                                    if success {
+                                        authInfo.userInfo = newUserInfo
+                                        dismiss()
+                                    }
+                                    else {
+                                        print("Error saving user info")
+                                    }
                                 }
                             }, label: {
                                 Text("Save")
@@ -101,6 +108,23 @@ struct AllergenProfileView: View {
                 .padding(.horizontal, 20)
                 
             } //: ZStack
+            .alert("Heads Up", isPresented: $showAlert, actions: {
+                Button(role: .none, action: {
+                    let newUserInfo = UserInfo(allergenProfile: allergenProfile, isConfigured: true)
+                    authInfo.userInfo = newUserInfo
+                    dismiss()
+                }, label: {
+                    Text("Save")
+                })
+                
+                Button(role: .none, action: {
+                    authInfo.state = .notAuthorized
+                }, label: {
+                    Text("Sign in")
+                })
+            }, message: {
+                Text("Since you are not signed in, your allergen profile will not be saved after you close Nomify. Sign in or create an account to keep your allergen profile saved.")
+            })
         } //: GeometryReader
     }
 }

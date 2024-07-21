@@ -47,7 +47,7 @@ struct ViewManager: View {
                 AuthView()
                     .environment(authInfo)
             }
-            else if authInfo.state == .authorized {
+            else if authInfo.state == .authorized || authInfo.state == .guest {
                 HomeView()
                     .environment(authInfo)
             }

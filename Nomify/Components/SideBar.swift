@@ -63,9 +63,6 @@ struct SideBar: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .bold()
                                 .font(.title)
-                            Text(authInfo.user?.email ?? "")
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .fontWeight(.semibold)
                         } //: Text VStack
                         
                         Divider()
@@ -84,22 +81,40 @@ struct SideBar: View {
                                 }
                             })
                             
-                            Button(action: {
-                                do {
-                                    try Auth.auth().signOut()
-                                }
-                                catch {
-                                    print("Error logging out")
-                                }
-                            }, label: {
-                                HStack(spacing: 10) {
-                                    Image(systemName: "figure.walk.departure")
-                                        .font(.title3)
-                                    
-                                    Text("Sign out")
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                }
-                            })
+                            if authInfo.state == .guest {
+                                Button(action: {
+                                    authInfo.userInfo = nil
+                                    authInfo.state = .notAuthorized
+                                }, label: {
+                                    HStack(spacing: 10) {
+                                        Image(systemName: "person.badge.key.fill")
+                                            .font(.title3)
+                                        
+                                        Text("Sign in")
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                    }
+                                })
+                            }
+                            else if authInfo.state == .authorized {
+                                
+                                Button(action: {
+                                    do {
+                                        authInfo.userInfo = nil
+                                        try Auth.auth().signOut()
+                                    }
+                                    catch {
+                                        print("Error logging out")
+                                    }
+                                }, label: {
+                                    HStack(spacing: 10) {
+                                        Image(systemName: "figure.walk.departure")
+                                            .font(.title3)
+                                        
+                                        Text("Sign out")
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                    }
+                                })
+                            }
                             
                         } //: Button VStack
                         .foregroundStyle(.white)
@@ -108,17 +123,19 @@ struct SideBar: View {
                         
                         Spacer()
                         
-                        Button(action: {
-                            isDeleteAlert = true
-                        }, label: {
-                            Text("Delete Account")
-                                .frame(maxWidth: .infinity)
-                                .fontWeight(.semibold)
-                                .padding()
-                                .foregroundStyle(.red)
-                                .background(RoundedRectangle(cornerRadius: 15).fill(.white))
-                            
-                        })
+                        if authInfo.state == .authorized {
+                            Button(action: {
+                                isDeleteAlert = true
+                            }, label: {
+                                Text("Delete Account")
+                                    .frame(maxWidth: .infinity)
+                                    .fontWeight(.semibold)
+                                    .padding()
+                                    .foregroundStyle(.red)
+                                    .background(RoundedRectangle(cornerRadius: 15).fill(.white))
+                                
+                            })
+                        }
                         
                         
                     } //: VStack
@@ -193,6 +210,5 @@ struct SideBar: View {
             Text("This will permanently delete your account and all of your data! Please enter your password to delete your account.")
             
         }
-        
     }
 }
