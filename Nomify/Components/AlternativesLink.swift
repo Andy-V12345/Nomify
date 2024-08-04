@@ -34,13 +34,6 @@ struct AlternativesLink: View {
             
             Spacer()
             
-            Button(action: {
-                // TODO: SAVE RECIPE / BRAND BUTTON
-            }, label: {
-                Image(systemName: "square.and.arrow.down")
-                    .fontWeight(.semibold)
-                    .foregroundStyle(Color("themeGreen"))
-            })
         }
     }
 }

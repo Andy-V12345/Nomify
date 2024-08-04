@@ -152,6 +152,7 @@ struct AuthView: View {
                 ForgotPasswordView()
             })
         } //: GeometryReader
+        .ignoresSafeArea(.keyboard)
     } //: Body
     
     var LogIn: some View {
@@ -266,30 +267,30 @@ struct AuthView: View {
             } //: Switch to Sign Up HStack
             .font(.subheadline)
             
-            Text("or")
-                .foregroundStyle(Color("themeGreen"))
-                .italic()
-                .font(.subheadline)
-            
-            Button(action: {
-                // TODO: SIGN IN WITH GOOGLE FEATURE
-                googleLogIn()
-            }, label: {
-                HStack(spacing: 8) {
-                    Text("Sign in with Google")
-                        .foregroundStyle(Color("themeGreen"))
-                        .bold()
-                    Image("google")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 20)
-                }
-                .frame(maxWidth: .infinity)
-                .padding(.vertical)
-                .background(RoundedRectangle(cornerRadius: 10).fill(.white))
-                .clipped()
-                .shadow(radius: 2)
-            })
+//            Text("or")
+//                .foregroundStyle(Color("themeGreen"))
+//                .italic()
+//                .font(.subheadline)
+//            
+//            Button(action: {
+//                // TODO: SIGN IN WITH GOOGLE FEATURE
+//                googleLogIn()
+//            }, label: {
+//                HStack(spacing: 8) {
+//                    Text("Sign in with Google")
+//                        .foregroundStyle(Color("themeGreen"))
+//                        .bold()
+//                    Image("google")
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fit)
+//                        .frame(width: 20)
+//                }
+//                .frame(maxWidth: .infinity)
+//                .padding(.vertical)
+//                .background(RoundedRectangle(cornerRadius: 10).fill(.white))
+//                .clipped()
+//                .shadow(radius: 2)
+//            })
             
         } //: Auth VStack
     } //: LogIn View
@@ -409,29 +410,29 @@ struct AuthView: View {
             } //: Switch to Log In HStack
             .font(.subheadline)
             
-            Text("or")
-                .foregroundStyle(Color("themeGreen"))
-                .italic()
-                .font(.subheadline)
-            
-            Button(action: {
-                googleLogIn()
-            }, label: {
-                HStack(spacing: 8) {
-                    Text("Sign in with Google")
-                        .foregroundStyle(Color("themeGreen"))
-                        .bold()
-                    Image("google")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 20)
-                }
-                .frame(maxWidth: .infinity)
-                .padding(.vertical)
-                .background(RoundedRectangle(cornerRadius: 10).fill(.white))
-                .clipped()
-                .shadow(radius: 2)
-            })
+//            Text("or")
+//                .foregroundStyle(Color("themeGreen"))
+//                .italic()
+//                .font(.subheadline)
+//            
+//            Button(action: {
+//                googleLogIn()
+//            }, label: {
+//                HStack(spacing: 8) {
+//                    Text("Sign in with Google")
+//                        .foregroundStyle(Color("themeGreen"))
+//                        .bold()
+//                    Image("google")
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fit)
+//                        .frame(width: 20)
+//                }
+//                .frame(maxWidth: .infinity)
+//                .padding(.vertical)
+//                .background(RoundedRectangle(cornerRadius: 10).fill(.white))
+//                .clipped()
+//                .shadow(radius: 2)
+//            })
             
         } //: Auth VStack
         

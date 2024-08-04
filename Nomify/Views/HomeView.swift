@@ -293,8 +293,6 @@ struct HomeView: View {
                 }
                 .onChange(of: isTakingPhoto) { old, new in
                     if old && !new && imageData.count != 0 {
-                        // TODO: PROCESS imageData
-                        
                         useState = .loading
                         loadingText = "Analyzing your photo!"
                         
